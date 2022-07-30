@@ -2,7 +2,7 @@
 #                 @jatkinson1000
 #
 # Date Created  : 2022-07-14
-# Last Modified : 2022-07-18
+# Last Modified : 2022-07-30
 #
 # Summary       : AGB Gender investigation for indoor competition.  plotting routines
 #
@@ -103,7 +103,7 @@ def scatter_mixed_scores(data, fsave=True, fpath='./results/'):
         plt.suptitle(event)
 
         if fsave:
-            plt.savefig(f'{fpath}{event}_scores.png')
+            plt.savefig(f'{fpath}{event}_scores_mixed.png')
         else:
             plt.show()
 
@@ -174,7 +174,7 @@ def mixed_split_percentile(data, fsave=True, fpath='./results/'):
         plt.suptitle(event)
 
         if fsave:
-            plt.savefig(f'{fpath}{event}_scores.png')
+            plt.savefig(f'{fpath}{event}_percentile_scatter.png')
         else:
             plt.show()
 
