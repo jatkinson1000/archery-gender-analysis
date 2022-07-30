@@ -1,10 +1,21 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+title: AGB Gender Analysis
+message: >-
+  "If you use this software, please cite it as
+  below."
+type: software
 authors:
-  - family-names: Atkinson
-    given-names: Jack
-    orcid: https://orcid.org/0000-0001-5001-4812
-title: "AGB-gender-analysis"
-version:
-doi:
-date-released: 2022-07-30
+  - given-names: Jack
+    family-names: Atkinson
+    orcid: 'https://orcid.org/0000-0001-5001-4812'
+identifiers:
+  - type: url
+    value: >-
+      https://github.com/jatkinson1000/AGB-gender-analysis
+    description: GitHub repository with code
+repository-code: >-
+  https://github.com/jatkinson1000/AGB-gender-analysis
+license: MIT
