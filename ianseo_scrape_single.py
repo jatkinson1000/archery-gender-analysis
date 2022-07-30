@@ -145,6 +145,18 @@ if __name__ == "__main__":
     # url = 'https://www.ianseo.net/TourData/2022/9959'
     # fname = 'Nimes22Scores'
 
+    # # AGB NI 2021
+    # url = 'https://www.ianseo.net/TourData/2021/9399/'
+    # fname = 'AGBNI21Scores'
+
+    # # AGB NI 2019
+    # url = 'https://www.ianseo.net/TourData/2019/6526'
+    # fname = 'AGBNI19Scores'
+
+    # # AGB NI 2018
+    # url = 'https://www.ianseo.net/TourData/2018/4739'
+    # fname = 'AGBNI18Scores'
+
     # # AGB NI 2017
     # url = 'https://www.ianseo.net/TourData/2017/3214'
     # fname = 'AGBNI17Scores'
