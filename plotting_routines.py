@@ -137,33 +137,34 @@ def mixed_split_percentile(data, fsave=True, fpath='./results/'):
             ax[i].invert_yaxis()
             ax[i].invert_xaxis()
 
-            # Insert axis
-            axins2 = zoomed_inset_axes(ax[i], zoom=2, loc='upper left', borderpad=2.5)
-            axins2.scatter(100*(data_cat_m['Sep rank']-1)/(len(data_cat_m)-1),
-                           100*((data_cat_m['Mixed rank']-1)/(n_mixed-1)), c='c', label=f'male ({len(data_cat_m)})')
-            axins2.scatter(100*(data_cat_f['Sep rank']-1)/(len(data_cat_f)-1),
-                           100*((data_cat_f['Mixed rank']-1)/(n_mixed-1)), c='r', label=f'female ({len(data_cat_f)})')
-            axins2.plot([-10, 110], [-10, 110], 'k')
+            if cat_i in 'RC':
+                # Insert axis
+                axins2 = zoomed_inset_axes(ax[i], zoom=2, loc='upper left', borderpad=2.5)
+                axins2.scatter(100*(data_cat_m['Sep rank']-1)/(len(data_cat_m)-1),
+                               100*((data_cat_m['Mixed rank']-1)/(n_mixed-1)), c='c', label=f'male ({len(data_cat_m)})')
+                axins2.scatter(100*(data_cat_f['Sep rank']-1)/(len(data_cat_f)-1),
+                               100*((data_cat_f['Mixed rank']-1)/(n_mixed-1)), c='r', label=f'female ({len(data_cat_f)})')
+                axins2.plot([-10, 110], [-10, 110], 'k')
 
-            # sub-region of the original image
-            x1, x2, y1, y2 = -1.0, 16.0, -1.0, 16.0
-            axins2.set_xlim(x1, x2)
-            axins2.set_ylim(y1, y2)
-            # fix the number of ticks on the inset axes
-            # axins2.yaxis.get_major_locator().set_params(nbins=7)
-            # axins2.xaxis.get_major_locator().set_params(nbins=7)
-            axins2.tick_params(labelleft=True, labelbottom=True)
-            axins2.invert_yaxis()
-            axins2.invert_xaxis()
-            axins2.set_aspect('equal')
+                # sub-region of the original image
+                x1, x2, y1, y2 = -1.0, 16.0, -1.0, 16.0
+                axins2.set_xlim(x1, x2)
+                axins2.set_ylim(y1, y2)
+                # fix the number of ticks on the inset axes
+                # axins2.yaxis.get_major_locator().set_params(nbins=7)
+                # axins2.xaxis.get_major_locator().set_params(nbins=7)
+                axins2.tick_params(labelleft=True, labelbottom=True)
+                axins2.invert_yaxis()
+                axins2.invert_xaxis()
+                axins2.set_aspect('equal')
 
-            # draw a bbox of the region of the inset axes in the parent axes and
-            # connecting lines between the bbox and the inset axes area
-            patch, pp1, pp2 = mark_inset(ax[i], axins2, loc1=2, loc2=1, fc="none", ec="0.0")
-            pp1.loc1 = 2
-            pp1.loc2 = 4
-            pp2.loc1 = 4
-            pp2.loc2 = 2
+                # draw a bbox of the region of the inset axes in the parent axes and
+                # connecting lines between the bbox and the inset axes area
+                patch, pp1, pp2 = mark_inset(ax[i], axins2, loc1=2, loc2=1, fc="none", ec="0.0")
+                pp1.loc1 = 2
+                pp1.loc2 = 4
+                pp2.loc1 = 4
+                pp2.loc2 = 2
 
             ax[i].set_xlim([105, -5])
             ax[i].set_ylim([105, -5])
