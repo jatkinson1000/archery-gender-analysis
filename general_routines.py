@@ -35,7 +35,7 @@ def calc_separate_rank_percentiles(df_in):
 
     # Generate seperate gender category rank based on score and then 10s
     df_in["Sep rank"] = (df_in.groupby(['Event', 'Division', 'Class'])["Score"].rank(ascending=False, method='min')
-                         + df_in.groupby(['Event', 'Division', 'Class', 'Score'])["10"].rank(ascending=False, method='average')
+                         + df_in.groupby(['Event', 'Division', 'Class', 'Score'])["10"].rank(ascending=False, method='min')
                          - 1)
     # Get separate percentile
     df_in['Sep pc'] = 100 * ((df_in['Sep rank'] - 1)
@@ -52,7 +52,7 @@ def calc_mixed_rank_percentiles(df_in):
 
     # Generate mixed gender category rank based on score and then 10s and percentile
     df_in["Mixed rank"] = (df_in.groupby(['Event', 'Division'])["Score"].rank(ascending=False, method='min')
-                           + df_in.groupby(['Event', 'Division', 'Score'])["10"].rank(ascending=False, method='average')
+                           + df_in.groupby(['Event', 'Division', 'Score'])["10"].rank(ascending=False, method='min')
                            - 1)
     df_in['Mixed pc'] = 100 * ((df_in['Mixed rank'] - 1)
                                / (df_in.groupby(['Event', 'Division'])['Score'].transform('count') - 1))
