@@ -2,7 +2,7 @@
 #                 @jatkinson1000
 #
 # Date Created  : 2022-07-14
-# Last Modified : 2022-07-14
+# Last Modified : 2022-07-30
 #
 # Summary       : AGB Gender investigation for indoor competition.  Main script
 #
@@ -11,26 +11,26 @@ import plotting_routines as plot
 import general_routines as gr
 
 if __name__ == "__main__":
-    # dataset_id = 'Nimes_'
-    # data_in = ["Nimes15",
-    #            "Nimes16",
-    #            "Nimes17",
-    #            "Nimes18",
-    #            "Nimes19",
-    #            "Nimes20",
-    #            "Nimes21",
-    #            # "Euro19",
-    #            "Nimes22"]
+    dataset_id = 'Nimes_'
+    data_in = ["Nimes15",
+               "Nimes16",
+               "Nimes17",
+               "Nimes18",
+               "Nimes19",
+               "Nimes20",
+               "Nimes21",
+               # "Euro19",
+               "Nimes22"]
 
-    dataset_id = 'AGB_NI_'
-    data_in = ["AGBNI21",
-               "AGBNI19",
-               "AGBNI18",
-               "AGBNI17",
-               "AGBNI16",
-               "AGBNI15",
-               "AGBNI14",
-               "AGBNI11"]
+    # dataset_id = 'AGB_NI_'
+    # data_in = ["AGBNI21",
+    #            "AGBNI19",
+    #            "AGBNI18",
+    #            "AGBNI17",
+    #            "AGBNI16",
+    #            "AGBNI15",
+    #            "AGBNI14",
+    #            "AGBNI11"]
 
     df_all = gr.read_from_files(data_in, datapath='./data/', fname_fmt='.csv', f_pref='', f_suff='Scores')
 
