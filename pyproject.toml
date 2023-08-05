@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools >= 61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "archery-gender-analysis"
+version = "0.1.1"
+description = "Data Analysis of gender differences at indoor archery competitions."
+authors = [
+  { name="Jack Atkinson", email="jack.atkinson1000@gmail.com" },
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Natural Language :: English",
+]
+dependencies = [
+    "numpy>=1.20.0",
+    "notebook",
+    "pandas",
+    "matplotlib",
+    "scipy",
+    "beautifulsoup4",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.2.0",
+]
+lint = [
+    "black>=22.12.0",
+    "pylint",
+    "mypy>=1.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/jatkinson1000/archery-gender-analysis"
+"Bug Tracker" = "https://github.com/jatkinson1000/archery-gender-analysis/Issues"
+
+[tool.setuptools]
+# By default, include-package-data is true in pyproject.toml, so you do
+# NOT have to specify this line.
+include-package-data = true
+
+#[tool.setuptools.packages]
+#find = {}
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["archery-gender-analysis", "archery-gender-analysis.*"]  # package names should match these glob patterns (["*"] by default)
+exclude = ["archery-gender-analysis.tests*", "analysis.py"]  # exclude packages matching these glob patterns (empty by default)
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
+[tool.setuptools.package-data]
+archeryutils = ["*.json", "*.txt", "*.csv"]
+
+#[options.extras_require]
+#tests = pytest
+
+[tool.mypy]
+warn_unused_configs = true
+plugins = ["numpy.typing.mypy_plugin"]
