@@ -3,7 +3,7 @@ requires = ["setuptools >= 61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "archery-gender-analysis"
+name = "archery_gender_analysis"
 version = "0.1.1"
 description = "Data Analysis of gender differences at indoor archery competitions."
 authors = [
@@ -22,9 +22,10 @@ dependencies = [
     "numpy>=1.20.0",
     "notebook",
     "pandas",
-    "matplotlib",
+    "matplotlib==3.7.1",
     "scipy",
     "beautifulsoup4",
+    "lxml",
 ]
 
 [project.optional-dependencies]
@@ -35,6 +36,7 @@ lint = [
     "black>=22.12.0",
     "pylint",
     "mypy>=1.0.0",
+    "jupyter-black",
 ]
 
 [project.urls]
@@ -50,8 +52,8 @@ include-package-data = true
 #find = {}
 [tool.setuptools.packages.find]
 where = ["."]  # list of folders that contain the packages (["."] by default)
-include = ["archery-gender-analysis", "archery-gender-analysis.*"]  # package names should match these glob patterns (["*"] by default)
-exclude = ["archery-gender-analysis.tests*", "analysis.py"]  # exclude packages matching these glob patterns (empty by default)
+include = ["archery_gender_analysis", "archery-gender-analysis.*"]  # package names should match these glob patterns (["*"] by default)
+exclude = ["archery_gender_analysis.tests*", "analysis.py"]  # exclude packages matching these glob patterns (empty by default)
 namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
 
 [tool.setuptools.package-data]

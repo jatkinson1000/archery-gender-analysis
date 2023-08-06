@@ -85,19 +85,19 @@ def scatter_mixed_scores(data, fsave=True, fpath='./results/'):
         cat = sorted(cat, key=lambda x: ['R', 'C', 'B', 'L'].index(x[0]))
 
         fig, ax = plt.subplots(1, len(cat), figsize=(5*len(cat), 5), sharey='row')
-        for i, cat_i in enumerate(cat):
+        for cat_i, ax_i in zip(cat, ax.ravel()):
             data_cat_m = data_event[(data_event['Class'] == f'M')
                                     & (data_event['Division'] == f'{cat_i}')]
             data_cat_f = data_event[(data_event['Class'] == f'W')
                                     & (data_event['Division'] == f'{cat_i}')]
 
-            ax[i].scatter(data_cat_m['Mixed rank'], data_cat_m['Score'], c='c', s=2, label='male')
-            ax[i].scatter(data_cat_f['Mixed rank'], data_cat_f['Score'], c='r', s=2, label='female')
+            ax_i.scatter(data_cat_m['Mixed rank'], data_cat_m['Score'], c='c', s=2, label='male')
+            ax_i.scatter(data_cat_f['Mixed rank'], data_cat_f['Score'], c='r', s=2, label='female')
 
-            ax[i].invert_xaxis()
-            ax[i].set_title(cat_i)
-            ax[i].set_xlabel('Mixed Ranking Position')
-            ax[i].legend(loc='lower right')
+            ax_i.invert_xaxis()
+            ax_i.set_title(cat_i)
+            ax_i.set_xlabel('Mixed Ranking Position')
+            ax_i.legend(loc='lower right')
 
         ax[0].set_ylabel('Score')
         plt.suptitle(event)
@@ -117,29 +117,29 @@ def mixed_split_percentile(data, fsave=True, fpath='./results/'):
         cat = sorted(cat, key=lambda x: ['R', 'C', 'B', 'L'].index(x[0]))
 
         fig, ax = plt.subplots(1, len(cat), figsize=(5*len(cat), 5), sharey='row')
-        for i, cat_i in enumerate(cat):
+        for cat_i, ax_i in zip(cat, ax.ravel()):
             data_cat_m = data_event[(data_event['Class'] == f'M')
                                     & (data_event['Division'] == f'{cat_i}')]
             data_cat_f = data_event[(data_event['Class'] == f'W')
                                     & (data_event['Division'] == f'{cat_i}')]
             n_mixed = len(data_cat_m) + len(data_cat_f)
 
-            ax[i].scatter(100*(data_cat_m['Sep rank']-1)/(len(data_cat_m)-1),
+            ax_i.scatter(100*(data_cat_m['Sep rank']-1)/(len(data_cat_m)-1),
                           100*((data_cat_m['Mixed rank']-1)/(n_mixed-1)), c='c', label=f'male ({len(data_cat_m)})')
-            ax[i].scatter(100*(data_cat_f['Sep rank']-1)/(len(data_cat_f)-1),
+            ax_i.scatter(100*(data_cat_f['Sep rank']-1)/(len(data_cat_f)-1),
                           100*((data_cat_f['Mixed rank']-1)/(n_mixed-1)), c='r', label=f'female ({len(data_cat_f)})')
 
-            ax[i].plot([-10, 110], [-10, 110], 'k')
+            ax_i.plot([-10, 110], [-10, 110], 'k')
 
-            ax[i].set_title(cat_i)
-            ax[i].set_xlabel('Split Qualification Percentile')
+            ax_i.set_title(cat_i)
+            ax_i.set_xlabel('Split Qualification Percentile')
 
-            ax[i].invert_yaxis()
-            ax[i].invert_xaxis()
+            ax_i.invert_yaxis()
+            ax_i.invert_xaxis()
 
             if cat_i in 'RC':
                 # Insert axis
-                axins2 = zoomed_inset_axes(ax[i], zoom=2, loc='upper left', borderpad=2.5)
+                axins2 = zoomed_inset_axes(ax_i, zoom=2, loc='upper left', borderpad=2.5)
                 axins2.scatter(100*(data_cat_m['Sep rank']-1)/(len(data_cat_m)-1),
                                100*((data_cat_m['Mixed rank']-1)/(n_mixed-1)), c='c', label=f'male ({len(data_cat_m)})')
                 axins2.scatter(100*(data_cat_f['Sep rank']-1)/(len(data_cat_f)-1),
@@ -160,16 +160,16 @@ def mixed_split_percentile(data, fsave=True, fpath='./results/'):
 
                 # draw a bbox of the region of the inset axes in the parent axes and
                 # connecting lines between the bbox and the inset axes area
-                patch, pp1, pp2 = mark_inset(ax[i], axins2, loc1=2, loc2=1, fc="none", ec="0.0")
+                patch, pp1, pp2 = mark_inset(ax_i, axins2, loc1=2, loc2=1, fc="none", ec="0.0")
                 pp1.loc1 = 2
                 pp1.loc2 = 4
                 pp2.loc1 = 4
                 pp2.loc2 = 2
 
-            ax[i].set_xlim([105, -5])
-            ax[i].set_ylim([105, -5])
-            ax[i].set_aspect('equal')
-            ax[i].legend(loc='lower right')
+            ax_i.set_xlim([105, -5])
+            ax_i.set_ylim([105, -5])
+            ax_i.set_aspect('equal')
+            ax_i.legend(loc='lower right')
 
         ax[0].set_ylabel('Mixed Qualification Percentile')
         plt.suptitle(event)

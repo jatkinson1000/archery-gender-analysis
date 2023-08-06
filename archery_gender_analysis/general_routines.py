@@ -14,13 +14,10 @@ from scipy.stats import ttest_ind
 
 def read_from_files(flist, datapath='./data/', fname_fmt='.csv', f_pref='', f_suff='Scores'):
 
-    if not isinstance(flist, list):
-        flist = [flist]
-
     li_df = []
     fields = ['Division', 'Class', 'Score', '10', '9', 'Category Rank']
     for f_id in flist:
-        dataset = pd.read_csv(f'{datapath}{f_pref}{f_id}{f_suff}{fname_fmt}', usecols=fields)
+        dataset = pd.read_csv(f'{datapath}{f_pref}{f_id.replace(" ","_")}{f_suff}{fname_fmt}', usecols=fields)
         # Drop any zero/DNS scores as cause issues with analysis.
         dataset = dataset.drop(dataset[dataset.Score == 0].index)
         dataset["Event"] = f_id
@@ -108,7 +105,7 @@ def set_rank_band(data, band_edges=None):
     return data
 
 
-def conduct_t_test(data, fpath='./results/', fpref=''):
+def conduct_t_test(data, fpath='./results/', fpref='', display_summary=False, display_all=False):
 
     if 'Rank band' not in data.columns:
         data = set_rank_band(data)
@@ -116,24 +113,36 @@ def conduct_t_test(data, fpath='./results/', fpref=''):
     # Conduct ttest for all scores for each event and bowstyle(Division)
     groups_ed = data.groupby(['Event', 'Division'])
     with open(f'{fpath}{fpref}t_test_results_all.txt', 'w') as f:
-        f.write(groups_ed.apply(lambda df: ttest_ind(df.loc[df['Class'] == 'M']['Score'],
+        to_print = groups_ed.apply(lambda df: ttest_ind(df.loc[df['Class'] == 'M']['Score'],
                                                      df.loc[df['Class'] == 'W']['Score'],
-                                                     equal_var=False)[1]).to_string())
+                                                     equal_var=False)[1]).to_string()
+        f.write(to_print)
+        if display_summary:
+            print(to_print)
 
     groups_edc = data.groupby(['Event', 'Division', 'Class'])
     with open(f'{fpath}{fpref}all_stats.txt', 'w') as f:
-        f.write(groups_edc['Score'].aggregate(['mean', 'std', 'max', 'min', 'count']).to_string())
+        to_print = groups_edc['Score'].aggregate(['mean', 'std', 'max', 'min', 'count']).to_string()
+        f.write(to_print)
+        if display_summary:
+            print(to_print)
 
     # Conduct ttest for separate bands within each event and bowstyle(Division)
     groups_edb = data.groupby(['Event', 'Division', 'Rank band'])
     with open(f'{fpath}{fpref}t_test_results_bands.txt', 'w') as f:
-        f.write(groups_edb.apply(lambda df: ttest_ind(df.loc[df['Class'] == 'M']['Score'],
+        to_print = groups_edb.apply(lambda df: ttest_ind(df.loc[df['Class'] == 'M']['Score'],
                                                       df.loc[df['Class'] == 'W']['Score'],
-                                                      equal_var=False)[1]).to_string())
+                                                      equal_var=False)[1]).to_string()
+        f.write(to_print)
+        if display_all:
+            print(to_print)
 
     groups_edcb = data.groupby(['Event', 'Division', 'Rank band', 'Class'])
     with open(f'{fpath}{fpref}score_band_stats.txt', 'w') as f:
-        f.write(groups_edcb['Score'].aggregate(['mean', 'std', 'max', 'min', 'count']).to_string())
+        to_print = groups_edcb['Score'].aggregate(['mean', 'std', 'max', 'min', 'count']).to_string()
+        f.write(to_print)
+        if display_all:
+            print(to_print)
 
     return None
 
