@@ -128,7 +128,7 @@ def conduct_t_test(data, fpath='./results/', fpref='', display_summary=False, di
             print(to_print)
 
     # Conduct ttest for separate bands within each event and bowstyle(Division)
-    groups_edb = data.groupby(['Event', 'Division', 'Rank band'])
+    groups_edb = data.groupby(['Event', 'Division', 'Rank band'], observed=True)
     with open(f'{fpath}{fpref}t_test_results_bands.txt', 'w') as f:
         to_print = groups_edb.apply(lambda df: ttest_ind(df.loc[df['Class'] == 'M']['Score'],
                                                       df.loc[df['Class'] == 'W']['Score'],
@@ -137,7 +137,7 @@ def conduct_t_test(data, fpath='./results/', fpref='', display_summary=False, di
         if display_all:
             print(to_print)
 
-    groups_edcb = data.groupby(['Event', 'Division', 'Rank band', 'Class'])
+    groups_edcb = data.groupby(['Event', 'Division', 'Rank band', 'Class'], observed=True)
     with open(f'{fpath}{fpref}score_band_stats.txt', 'w') as f:
         to_print = groups_edcb['Score'].aggregate(['mean', 'std', 'max', 'min', 'count']).to_string()
         f.write(to_print)

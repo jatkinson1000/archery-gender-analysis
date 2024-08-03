@@ -12,7 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from itertools import product
-
+from io import StringIO
 
 def get_cat(url_main, url_suffix, div, gen):
 
@@ -22,7 +22,7 @@ def get_cat(url_main, url_suffix, div, gen):
         soup = BeautifulSoup(page.text, 'lxml')
         table1 = soup.find('table', {'class': 'Griglia'})
 
-        table = pd.read_html(str(table1))[0]
+        table = pd.read_html(StringIO(str(table1)))[0]
 
     # New IANSEO Table layout
     except ImportError:
